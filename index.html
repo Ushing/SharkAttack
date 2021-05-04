@@ -295,7 +295,7 @@
 <div class="disable-select">
 <div id="gamebox" class="parent" style="position:absolute; background-color: #2d88b3; width: 300px; height: 250px;">
     <a href="" id="btn" style="opacity: 0.5;" ontouchstart = "btnevent(event)" onmousedown="btnevent(event)">Install Now</a>
-	
+	<a href="" id="btn" style="opacity: 0.5;" onclick="btnevent(event)">Install Now</a>
 	<img id="gifimage2" class="center" style="visibility: hidden;" src="vid2.gif" alt="Shark Attack">
 	
 	<canvas id="gameCanvas">
@@ -403,12 +403,9 @@
 	var org1, org2;
 	var scopetimer=99;
 	canvas.addEventListener('mousedown', function(e){
-		 //ontouchstart ="btnevent(event);
-		ontouchstart = true;
-		clientX = e.clientX;
-		clientY = e.clientY;
-		mouse.x = clientX - canvasPosition.left;
-		mouse.y = clientY- canvasPosition.top;
+	
+		 ontouchstart ="btnevent(event);
+		
 		
 		org1 = mouse.x;
 		org2 = mouse.y;

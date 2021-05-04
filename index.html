@@ -264,7 +264,6 @@
 				vid.style.visibility = 'visible';
 				console.log("setToP");
 				document.getElementById("btn").className = "btn2 red";
-				//vid.style.zIndex = 2000;
 				
 				state++;
 				
@@ -555,7 +554,7 @@
 					this.tapR = 0;
 					this.alpha2 = 1;
 				}
-				this.y = canvas.height/2+105;
+				this.y = canvas.height/2+110;
 			}
 		}
 		draw(){
@@ -673,7 +672,7 @@
 		}
 		update(){
 			if(this.scaleF<1.1)
-				this.scaleF+=0.08;
+				this.scaleF+=0.03;		
 		}
 		draw(){
 			ctx.save();

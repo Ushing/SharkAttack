@@ -358,9 +358,6 @@
 	const card2Sprite = new Image();
 	card2Sprite.src = 'Killer-whale-off.png';
 	
-	const glow = new Image();
-	glow.src = 'glow.png';
-	
 	const shark2 = new Image();
 	shark2.src = 'shark2.png';
 	
@@ -500,18 +497,7 @@
 			this.tapA = 0;
 		}
 		update(){
-			if(!secondScene){
-			
-			   if(Math.sin(this.angle)<0.9 && freebutton)
-				{
-					showGlow.alpha = 0;
-				}
-                else
-				{
-					showGlow.x = canvas.width/2-10;
-					showGlow.alpha = 1;
-					console.log("jafsa");
-				}	   				
+			if(!secondScene){		
 			   
 				this.alpha = 1;
 				this.radius = 95;
@@ -623,31 +609,6 @@
 		}
 	}
 	const bg = new Background();
-	
-	class Glow {
-		constructor(){
-			this.x = canvas.width/2-80;
-			this.y = canvas.height/2+53;
-			this.angle = 0;
-			this.frameX = 0;
-			this.frameY = 0;
-			this.frame = 0;
-			this.alpha=1;
-			this.sprite = glow;
-		}
-		update(){
-			
-		}
-		draw(){
-			ctx.save();
-			ctx.globalAlpha = this.alpha;
-			ctx.translate(this.x, this.y);
-			ctx.scale(0.55, 0.17);
-			ctx.drawImage(this.sprite, 0, 0);
-			ctx.restore();
-		}
-	}
-	const showGlow = new Glow();
 	
 	class Card2 {
 		constructor(){
@@ -793,8 +754,6 @@
 				c2.draw();
 				freebutton.update();
 				freebutton.draw();
-				showGlow.update();
-				showGlow.draw();
 			}
 			else 
 			{

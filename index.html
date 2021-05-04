@@ -33,9 +33,9 @@
 <meta name="browsermode" content="application"/>
 <meta name="x5-page-mode" content="app"/>
 <script> 
-	var touchmove = "https://play.google.com/store/apps/details?id=com.fpg.sharkattack&hl=en&gl=US";
-	if (/android/i.test(navigator.userAgent)) touchmove = 'https://play.google.com/store/apps/details?id=com.fpg.sharkattack&hl=en&gl=US';
-	else if(/iPad|iPhone|iPod/.test(navigator.userAgent)) touchmove = 'https://apps.apple.com/app/shark-attack-simulator-games/id1489941954';
+	var clickTag = "https://play.google.com/store/apps/details?id=com.fpg.sharkattack&hl=en&gl=US";
+	if (/android/i.test(navigator.userAgent)) clickTag = 'https://play.google.com/store/apps/details?id=com.fpg.sharkattack&hl=en&gl=US';
+	else if(/iPad|iPhone|iPod/.test(navigator.userAgent)) clickTag = 'https://apps.apple.com/app/shark-attack-simulator-games/id1489941954';
 </script>
 
 <style>
@@ -223,7 +223,7 @@
 	var currOrient = "";
 	
 	function gameSettings(){
-		redirectLink = touchmove;
+		redirectLink = clickTag;
 	}
 		
 	function handleSize(){
@@ -255,14 +255,12 @@
 			console.log("state val: "+state);
 			if(redirectEnable)
 			{
-				location.href = touchmove;
+				location.href = clickTag;
 			} else {
 				missedStart=0;
 				
 				var vid = document.getElementById('gifimage2');
-				if(id==1){
-					vid = document.getElementById('gifimage1');
-				}
+				
 				vid.style.visibility = 'visible';
 				console.log("setToP");
 				document.getElementById("btn").className = "btn2 red";
@@ -287,7 +285,7 @@
 	function btnevent(event){
 		event.preventDefault();
 		console.log("redir");
-		location.href = touchmove;
+		location.href = clickTag;
 	}
 </script>
 </head>
@@ -401,6 +399,7 @@
 	var scopetimer=99;
 	canvas.addEventListener('mousedown', function(e){
 		 //ontouchstart ="btnevent(event);
+		 
 		mouse.click = true;
 		clientX = e.clientX;
 		clientY = e.clientY;
@@ -413,6 +412,7 @@
 		console.log("mousex: %f, mousey: %f", mouse.x, mouse.y);
 		//player.alpha=0;
 	});
+	
 	var countScene = 0;
 	var vidShow = false;
 	canvas.addEventListener('mouseup', function(e){
@@ -442,10 +442,10 @@
 			}
 		}
 	});
-	document.addEventListener("click", function(){
-		mouse.click = false;
-		scopetimer = 0;
-		
+	
+	canvas.addEventListener('touchmove', function(e){
+		 if(vidShow == true)
+		 buttonCallBack(event,0);
 	});
 	
 	class Crosshair {

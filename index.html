@@ -33,9 +33,9 @@
 <meta name="browsermode" content="application"/>
 <meta name="x5-page-mode" content="app"/>
 <script> 
-	var clickTag = "https://play.google.com/store/apps/details?id=com.fpg.sharkattack&hl=en&gl=US";
-	if (/android/i.test(navigator.userAgent)) clickTag = 'https://play.google.com/store/apps/details?id=com.fpg.sharkattack&hl=en&gl=US';
-	else if(/iPad|iPhone|iPod/.test(navigator.userAgent)) clickTag = 'https://apps.apple.com/app/shark-attack-simulator-games/id1489941954';
+	var touchmove = "https://play.google.com/store/apps/details?id=com.fpg.sharkattack&hl=en&gl=US";
+	if (/android/i.test(navigator.userAgent)) touchmove = 'https://play.google.com/store/apps/details?id=com.fpg.sharkattack&hl=en&gl=US';
+	else if(/iPad|iPhone|iPod/.test(navigator.userAgent)) touchmove = 'https://apps.apple.com/app/shark-attack-simulator-games/id1489941954';
 </script>
 
 <style>
@@ -223,7 +223,7 @@
 	var currOrient = "";
 	
 	function gameSettings(){
-		redirectLink = clickTag;
+		redirectLink = touchmove;
 	}
 		
 	function handleSize(){
@@ -255,7 +255,7 @@
 			console.log("state val: "+state);
 			if(redirectEnable)
 			{
-				location.href = clickTag;
+				location.href = touchmove;
 			} else {
 				missedStart=0;
 				
@@ -287,15 +287,14 @@
 	function btnevent(event){
 		event.preventDefault();
 		console.log("redir");
-		location.href = clickTag;
+		location.href = touchmove;
 	}
 </script>
 </head>
 <body style = "background-color: #2d88b3;" >
 <div class="disable-select">
 <div id="gamebox" class="parent" style="position:absolute; background-color: #2d88b3; width: 300px; height: 250px;">
-    <a href="" id="btn" style="opacity: 0.5;" ontouchstart ="btnevent(event)" onmousedown="btnevent(event)">Install Now</a>
-	
+    <a href="" id="btn" style="opacity: 0.5;" onclick ="btnevent(event)">Install Now</a>
 	<img id="gifimage2" class="center" style="visibility: hidden;" src="vid2.gif" alt="Shark Attack">
 	<canvas id="gameCanvas">
 	</canvas>
@@ -359,6 +358,8 @@
 	const card2Sprite = new Image();
 	card2Sprite.src = 'Killer-whale-off.png';
 	
+	const glow = new Image();
+	glow.src = 'glow.png';
 	
 	const shark2 = new Image();
 	shark2.src = 'shark2.png';
@@ -500,6 +501,18 @@
 		}
 		update(){
 			if(!secondScene){
+			
+			   if(Math.sin(this.angle)<0.9 && freebutton)
+				{
+					showGlow.alpha = 0;
+				}
+                else
+				{
+					showGlow.x = canvas.width/2-10;
+					showGlow.alpha = 1;
+					console.log("jafsa");
+				}	   				
+			   
 				this.alpha = 1;
 				this.radius = 95;
 				(this.goReverse)? this.angle2-=0.013: this.angle2+=0.006;
@@ -611,6 +624,30 @@
 	}
 	const bg = new Background();
 	
+	class Glow {
+		constructor(){
+			this.x = canvas.width/2-80;
+			this.y = canvas.height/2+53;
+			this.angle = 0;
+			this.frameX = 0;
+			this.frameY = 0;
+			this.frame = 0;
+			this.alpha=1;
+			this.sprite = glow;
+		}
+		update(){
+			
+		}
+		draw(){
+			ctx.save();
+			ctx.globalAlpha = this.alpha;
+			ctx.translate(this.x, this.y);
+			ctx.scale(0.55, 0.17);
+			ctx.drawImage(this.sprite, 0, 0);
+			ctx.restore();
+		}
+	}
+	const showGlow = new Glow();
 	
 	class Card2 {
 		constructor(){
@@ -640,7 +677,7 @@
 	class FreeButton {
 		constructor(){
 			this.x = canvas.width/2-60;
-			this.y = canvas.height/2+30;
+			this.y = canvas.height/2+20;
 			this.angle = 0;
 			this.frameX = 0;
 			this.frameY = 0;
@@ -754,10 +791,10 @@
 			{
 				c2.update();
 				c2.draw();
-				name.update();
-				name.draw();
 				freebutton.update();
 				freebutton.draw();
+				showGlow.update();
+				showGlow.draw();
 			}
 			else 
 			{
